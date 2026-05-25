@@ -1,0 +1,10 @@
+/* Header.css */
+/* Container for navigation tabs */
+.header__tabs {
+  padding: 8px 20px;
+  border-radius: 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* Optional: active tab styling (handled via inline JS color) */

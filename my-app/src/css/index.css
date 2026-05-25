@@ -1,0 +1,231 @@
+/* ==== Theme variables ==== */
+:root {
+  --accent-primary: #00695c;   /* main accent teal */
+  --accent-muted: #ff6f61;   /* softer secondary accent */
+  --bg-dark: #f8f9fa;     /* light page background */
+  --bg-dark-card: #ffffff;/* cards/footer background */
+  --text-light: #333333;  /* main text color */
+}
+
+/* ==== Global resets ==== */
+body {
+  margin: 0;
+  font-family: 'Verdana', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Links and navigation items */
+a,
+.nav-link,
+.navbar-brand,
+footer a,
+.accent-primary {
+  color: var(--accent-primary) !important;
+  text-decoration: none;
+}
+
+/* Icons (Bootstrap Icons) */
+.bi,
+.footer-icons i {
+  color: var(--accent-primary) !important;
+}
+
+/* Utility classes */
+.accent-primary-bg   { background-color: var(--accent-primary) !important; }
+.accent-primary { color: var(--accent-primary) !important; }
+.muted-text { color: var(--text-light) !important; }
+.dark-bg  { background-color: var(--bg-dark) !important; }
+
+/* Button uniform spacing */
+.footer-section-title {
+  border-bottom: 2px solid var(--accent-primary);
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.footer-top {
+  border-top: 2px solid var(--accent-primary);
+}
+
+.footer-bottom-border {
+  border-top: 1px solid #ddd;
+}
+.btn-primary {
+  background-color: var(--accent-primary) !important;
+  color: #fff !important;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #b71c1c !important; /* darker shade */
+}
+
+.btn-outline-primary {
+  border: 2px solid var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+  background-color: transparent !important;
+}
+.btn-outline-primary:hover {
+  background-color: var(--accent-primary) !important;
+  color: #fff !important;
+}
+
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+/* Outline button keep red */
+.btn-outline-danger {
+  border-color: var(--theme-red) !important;
+  color: var(--theme-red) !important;
+}
+
+/* Footer icons spacing */
+.footer-icons {
+  display: flex;
+  gap: 12px; /* spacing between icons */
+}
+
+/* Sections – dark cards */
+.hero-section-custom,
+.features-section,
+.categories-section-custom,
+.product-shop,
+footer {
+  background: var(--bg-dark-card);
+  color: var(--text-light);
+}
+
+/* Hero overlay removed for lighter effect */
+.hero-section-custom::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+/* Ensure text on hero sections stays light */
+.hero-section-custom * {
+  position: relative; /* keep above overlay */
+  z-index: 1;
+}
+
+/* ==== Premium Centered Hero Section ==== */
+.hero-section-custom {
+  position: relative;
+  background: linear-gradient(135deg, #f0f7f6 0%, #e0f2f1 100%) !important; /* Soft mint/teal gradient */
+  padding: 50px 0 !important;
+  overflow: hidden;
+  border-bottom: 1px solid #b2dfdb !important;
+}
+
+.hero-subtitle-premium {
+  background-color: #e0f2f1 !important;
+  color: #00695c !important;
+  border: 1px solid #b2dfdb !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  padding: 6px 16px !important;
+  border-radius: 50px !important;
+  display: inline-block !important;
+}
+
+.hero-title-premium {
+  font-size: 2.2rem !important; /* Elegant modern sizing */
+  font-weight: 800 !important;
+  color: #1a1a1a !important;
+  line-height: 1.3 !important;
+}
+
+.hero-title-premium .accent-color {
+  color: var(--accent-primary) !important;
+}
+
+.hero-description-premium {
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  color: #555555 !important;
+  max-width: 650px !important;
+}
+
+/* Premium Search Form */
+.hero-search-form-premium {
+  width: 100%;
+  max-width: 500px;
+}
+
+.hero-search-form-premium .search-input {
+  font-size: 14px;
+  color: #333;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.hero-search-form-premium .search-input::placeholder {
+  color: #999;
+}
+
+.hero-search-form-premium .btn-search-premium {
+  background-color: var(--accent-primary) !important;
+  color: #ffffff !important;
+  border-radius: 0 !important;
+  transition: background-color 0.2s;
+  border: none;
+}
+
+.hero-search-form-premium .btn-search-premium:hover {
+  background-color: #004d40 !important;
+}
+
+/* Premium Hero Buttons */
+.hero-buttons-premium {
+  margin-top: 15px;
+}
+
+.hero-buttons-premium .btn-buy-premium {
+  background-color: var(--accent-primary) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  padding: 12px 28px !important;
+  font-size: 13px !important;
+  border-radius: 50px !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+  margin-right: 15px !important; /* standard spacing */
+}
+
+.hero-buttons-premium .btn-buy-premium:hover {
+  background-color: #004d40 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 15px rgba(0, 105, 92, 0.3) !important;
+}
+
+.hero-buttons-premium .btn-view-premium {
+  background-color: #ffffff !important;
+  color: var(--accent-primary) !important;
+  border: 1px solid var(--accent-primary) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  padding: 12px 28px !important;
+  font-size: 13px !important;
+  border-radius: 50px !important;
+  transition: all 0.3s ease !important;
+}
+
+.hero-buttons-premium .btn-view-premium:hover {
+  background-color: var(--accent-primary) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 15px rgba(0, 105, 92, 0.15) !important;
+}
+
+/* Fix for icons inside premium buttons so they don't get forced to teal */
+.btn-search-premium i,
+.btn-buy-premium i {
+  color: #ffffff !important;
+}

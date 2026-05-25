@@ -1,0 +1,67 @@
+/* ShopPage specific styles */
+
+/* Hero section */
+.hero-subtitle {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+.hero-title {
+  font-weight: bold;
+  color: var(--text-light);
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.hero-search-form .search-input {
+  border-radius: 30px 0 0 30px;
+  border: 1px solid #ddd;
+  padding-left: 25px;
+  border-right: none;
+}
+
+.hero-search-form .btn-primary {
+  border-radius: 0 30px 30px 0;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--accent-primary) !important;
+  color: #fff !important;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #b71c1c !important;
+}
+
+.btn-outline-primary {
+  border: 2px solid var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+  background-color: transparent !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--accent-primary) !important;
+  color: #fff !important;
+}
+
+.pagination .page-link {
+  color: var(--accent-primary) !important;
+}
+
+.pagination .page-item.active .page-link {
+  color: #ffffff !important;
+  background-color: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+.pagination .page-link.bg-danger {
+  background-color: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+  color: #fff !important;
+}

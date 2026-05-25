@@ -1,0 +1,166 @@
+/* ProductDetailPage specific styles */
+.product-detail-container {
+  padding: 3rem 0;
+}
+
+.breadcrumb-nav {
+  background: transparent !important;
+  padding: 0 !important;
+  margin-bottom: 25px !important;
+}
+
+.breadcrumb-nav .breadcrumb {
+  background: transparent !important;
+  padding: 0 !important;
+  font-size: 13px !important;
+}
+
+.breadcrumb-nav .breadcrumb-item a {
+  color: var(--accent-primary) !important;
+  font-weight: 600 !important;
+}
+
+.breadcrumb-nav .breadcrumb-item.active {
+  color: #888888 !important;
+}
+
+/* Beautiful curved card container */
+.product-detail-container .row.bg-white {
+  border-radius: 16px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid #f0f0f0 !important;
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px !important;
+  transition: transform 0.3s ease;
+}
+
+.product-image:hover {
+  transform: scale(1.02);
+}
+
+.category-badge {
+  background-color: #e0f2f1 !important;
+  color: #00695c !important;
+  border: 1px solid #b2dfdb !important;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 6px 14px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  border-radius: 50px !important;
+}
+
+/* Typography styles */
+.product-detail-container h2 {
+  font-size: 2rem !important;
+  font-weight: 800 !important;
+  color: #1a1a1a !important;
+}
+
+.product-detail-container h3 {
+  font-size: 1.6rem !important;
+  color: var(--accent-primary) !important;
+  font-weight: 800 !important;
+}
+
+.description-text {
+  color: #555555 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+/* Premium Rounded Quantity Selector */
+.quantity-group {
+  max-width: 130px !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
+  border-radius: 50px !important;
+  overflow: hidden !important;
+  border: 1px solid #b2dfdb !important;
+  background-color: #ffffff !important;
+}
+
+.quantity-group .quantity-button {
+  background-color: #e0f2f1 !important;
+  color: #00695c !important;
+  border: none !important;
+  width: 38px !important;
+  height: 38px !important;
+  font-size: 1rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: background-color 0.2s !important;
+}
+
+.quantity-group .quantity-button:hover {
+  background-color: #b2dfdb !important;
+}
+
+.quantity-group .quantity-button i {
+  color: #00695c !important;
+}
+
+.quantity-group input {
+  border: none !important;
+  height: 38px !important;
+  font-weight: 700 !important;
+  color: #1a1a1a !important;
+  font-size: 14px !important;
+  background-color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+/* Action Buttons Container and animations */
+.action-buttons-container {
+  display: flex !important;
+  gap: 15px !important;
+}
+
+.action-buttons-container .btn {
+  margin-right: 15px !important;
+  padding: 12px 28px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  font-size: 13px !important;
+  border-radius: 50px !important; /* Rounded pill shape matching landing page buttons */
+  transition: all 0.3s ease !important;
+}
+
+.action-buttons-container .btn:last-child {
+  margin-right: 0 !important;
+}
+
+.add-to-cart-btn {
+  background-color: var(--accent-primary) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #004d40 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 15px rgba(0, 105, 92, 0.3) !important;
+}
+
+.add-to-cart-btn i {
+  color: #ffffff !important; /* Force search cart icon to be white */
+}
+
+.buy-now-btn {
+  background-color: #ffffff !important;
+  border: 1px solid var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+}
+
+.buy-now-btn:hover {
+  background-color: var(--accent-primary) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 15px rgba(0, 105, 92, 0.15) !important;
+}

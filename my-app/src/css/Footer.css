@@ -1,0 +1,112 @@
+/* Footer.css */
+.footer {
+  border-top: 2px solid #007bff;
+}
+.footer__section-title {
+  border-bottom: 2px solid #dc3545;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+.footer__icon {
+  cursor: pointer;
+}
+.footer__copy {
+  font-size: 14px;
+}
+
+/* Make all text, links, and icons in footer black/dark gray (overriding high-specificity classes) */
+footer,
+footer p,
+footer span,
+footer a,
+footer li,
+footer h6,
+footer .accent-primary,
+footer a.accent-primary,
+footer p.accent-primary,
+footer span.accent-primary {
+  color: #212529 !important; /* Elegant dark gray/black */
+}
+
+/* Consistent elegant font size for all footer text */
+footer p,
+footer span,
+footer a,
+footer li {
+  font-size: 12.5px !important; /* Perfect consistent size */
+}
+
+/* Allow links to have an accent hover color */
+footer a:hover,
+footer a.accent-primary:hover {
+  color: var(--accent-primary) !important;
+  text-decoration: underline !important;
+}
+
+/* Ensure footer section titles are black but keep their colored underline with premium spacing below */
+.footer-section-title {
+  color: #111111 !important;
+  border-bottom: 2px solid var(--accent-primary) !important;
+  margin-bottom: 1.4rem !important; /* Perfect generous spacing between the underline and list items */
+}
+
+/* Social icons custom color and interaction */
+.footer-icons i {
+  color: #495057 !important;
+  margin-right: 15px !important;
+  font-size: 1.25rem !important;
+  transition: color 0.2s, transform 0.2s !important;
+}
+
+.footer-icons i:hover {
+  color: var(--accent-primary) !important;
+  transform: scale(1.2) !important;
+}
+
+/* Add generous vertical spacing between all footer list items so they don't stick together */
+.footer-list li,
+.footer-services-list li {
+  margin-bottom: 0.9rem !important;
+}
+
+/* Contact list layout and alignment fixes (Flexible Flexbox Method) */
+.footer-contact-list li {
+  display: flex !important;
+  align-items: flex-start !important; /* aligns icon with first line of text */
+  margin-bottom: 0.9rem !important; /* generous spacing between items */
+  position: relative !important;
+}
+
+.footer-contact-list li i.text-success,
+.footer-contact-list li i {
+  position: static !important;
+  margin-right: 12px !important; /* elegant spacing */
+  margin-top: 3px !important; /* aligns with first line of text */
+  font-size: 1rem !important; /* balanced icon size */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #495057 !important; /* Elegant dark gray icon */
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* Reset Bootstrap Icon offset that causes them to 'sink' below baseline */
+.footer-contact-list li i::before {
+  vertical-align: 0 !important; 
+  line-height: 1 !important;
+}
+
+.footer-contact-list li span {
+  color: #212529 !important;
+  font-size: 12.5px !important; /* consistent elegant font size */
+  line-height: 1.4 !important; /* Great line height so wrapped text doesn't stick */
+  display: inline-block !important;
+  white-space: normal !important; /* ALLOW wrapping naturally to prevent desktop overflows */
+}
+
+/* Social icons style wrapper */
+.footer-icon {
+  cursor: pointer;
+  transition: transform 0.2s, color 0.2s;
+}
