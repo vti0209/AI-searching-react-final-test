@@ -10,7 +10,7 @@ Dự án bắt đầu từ phía Backend để xây dựng nền tảng dữ li�
 
 ### Bước 1: Cấu hình môi trường (`.env`)
 - **File:** `backend/.env`
-- **Thực hiện:** Đây là file đầu tiên được động tới. Chúng ta thiết lập thông tin kết nối tới Database MySQL (DB_DATABASE, DB_USERNAME, DB_PASSWORD) và khai báo `GEMINI_API_KEY` dùng cho tính năng tìm kiếm AI sau này.
+- **Thực hiện:** Đây là file đầu tiên được động tới. Chúng ta thiết lập thông tin kết nối tới Database MySQL (DB_DATABASE, DB_USERNAME, DB_PASSWORD) và khai báo `GROQ_API_KEY` (trong `backend/.env`) dùng cho tính năng tìm kiếm AI.
 
 ### Bước 2: Thiết kế Cấu trúc Database (Migration)
 - **File:** `backend/database/migrations/xxxx_xx_xx_create_products_table.php`
@@ -25,7 +25,7 @@ Dự án bắt đầu từ phía Backend để xây dựng nền tảng dữ li�
 - **File:** `backend/app/Http/Controllers/ProductController.php`
 - **Thực hiện:** Xây dựng 2 hàm chính:
   1. `show($id)`: Lấy thông tin chi tiết của 1 sản phẩm.
-  2. `index(Request $request)`: Xử lý tìm kiếm. Đây là nơi **Logic AI Gemini được tích hợp**. Nếu có từ khóa tìm kiếm (`query`), controller sẽ gửi prompt chứa ngữ cảnh và dữ liệu sản phẩm sang Google Gemini API. Trả về kết quả gồm: danh sách sản phẩm đã lọc và câu tư vấn (nếu có AI).
+  2. `index(Request $request)`: Xử lý tìm kiếm. Logic AI được tách thành một service riêng `App\\Services\\ProductSearchService` để gọi Groq API. Khi có `query`, controller gọi service này, nhận về tiêu chí lọc JSON (category, min_price, max_price, keywords, sort_by, explanation) rồi áp filter vào DB.
 
 ### Bước 5: Mở API cho Frontend (Routes)
 - **File:** `backend/routes/api.php`
@@ -79,8 +79,8 @@ Sau khi Backend đã có API và Dữ liệu, luồng công việc chuyển sang
 2. Khách hàng nhập *"tìm áo len màu vàng"* vào thanh tìm kiếm ở HomePage.
 3. React chuyển hướng sang `ShopPage.jsx` với URL `?query=tìm áo len màu vàng`.
 4. `ShopPage.jsx` gọi API sang Backend Laravel.
-5. `ProductController.php` ở Backend nhận câu hỏi, nhận thấy đây là câu hỏi phức tạp nên đóng gói gửi sang **Gemini API**.
-6. Gemini trả lời: *"Đây là các mẫu áo len màu vàng phù hợp với bạn..."* cùng danh sách ID sản phẩm.
-7. Backend lọc DB theo các ID đó, gửi trả về cho Frontend.
+5. `ProductController.php` ở Backend nhận câu hỏi và gọi `ProductSearchService` để gửi prompt tới **Groq API**.
+6. Groq trả về JSON mô tả tiêu chí lọc (ví dụ: category = "Shirt", max_price = 500000, keywords = ["áo"]).
+7. Backend áp tiêu chí đó vào truy vấn DB, trả về danh sách sản phẩm phù hợp cùng `explanation` do Groq cung cấp.
 8. `ShopPage.jsx` nhận Data, hiển thị câu tư vấn của AI lên Alert và render danh sách "Áo len màu vàng" bên dưới.
 9. Khách click vào một áo len, chuyển sang `ProductDetailPage.jsx` để xem chi tiết và mua hàng.

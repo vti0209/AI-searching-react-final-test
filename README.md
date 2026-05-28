@@ -1,6 +1,6 @@
 # 🛍️ Fashion E-commerce Platform - MTYTSHOP
 
-Một nền tảng thương mại điện tử thời trang được xây dựng bằng **React + Laravel** với tính năng tìm kiếm AI tích hợp Gemini API.
+Một nền tảng thương mại điện tử thời trang được xây dựng bằng **React + Laravel** với tính năng tìm kiếm AI tích hợp Groq API.
 
 > Bài thi cuối kỳ môn **Thiết kế Web Nâng cao** & **ReactJS**
 
@@ -13,7 +13,7 @@ Một nền tảng thương mại điện tử thời trang được xây dựng
 | **Frontend** | React 18 + Vite + Bootstrap 5 | ✅ Hoàn thành |
 | **Backend** | Laravel 11 + SQLite | ✅ Hoàn thành |
 | **Database** | MySQL (63 sản phẩm) | ✅ Hoàn thành |
-| **Search** | Gemini 2.5 Flash API + Keyword Search | ✅ Hoàn thành |
+| **Search** | Groq API + Keyword Search | ✅ Hoàn thành |
 | **UI/UX** | Responsive Design | ✅ Hoàn thành |
 
 ---
@@ -36,7 +36,7 @@ Một nền tảng thương mại điện tử thời trang được xây dựng
 - 📦 Endpoints chính:
   - `GET /api/products` - Lấy danh sách sản phẩm (có phân trang)
   - `GET /api/products/{id}` - Lấy chi tiết sản phẩm
-  - `POST /api/search` - Tìm kiếm AI (Gemini) + Keyword
+  - `GET /api/products` - Lấy danh sách sản phẩm (hỗ trợ query `?query=...` để tìm kiếm AI hoặc tìm kiếm từ khóa)
 - 🗄️ Database SQLite với 9 danh mục sản phẩm
 - 🔐 CORS được cấu hình
 
@@ -246,18 +246,31 @@ Content-Type: application/json
 
 ---
 
-## 🔍 Tính Năng Tìm Kiếm
+## 🔍 Tính Năng Tìm Kiếm (AI + Fallback)
 
-### 1. **Tìm Kiếm AI (Gemini)**
-- Sử dụng Google Gemini 2.5 Flash API
-- Hiểu ngữ cảnh tìm kiếm
-- Trả lại sản phẩm phù hợp với mô tả
-- VD: "Áo ấm cho mùa đông" → Tìm các áo len, áo khoác
+### 1. **Tìm Kiếm AI (Groq)**
+- Dự án đã chuyển từ Gemini sang **Groq** (do Gemini quota/deprecation trong quá trình phát triển).
+- Backend gọi Groq thông qua một service tách riêng: `App\\Services\\ProductSearchService`.
+- Model mặc định hiện là `llama-3.3-70b-versatile` (service có retry khi Groq báo model decommissioned).
+- Groq trả về một đối tượng JSON mô tả tiêu chí tìm kiếm (category, min_price, max_price, keywords, sort_by, explanation). Backend sẽ parse và áp filter vào DB.
+
+Ví dụ query test:
+```
+GET http://127.0.0.1:8000/api/products?query=Tìm áo dưới 500k
+```
+Response mẫu (tóm tắt):
+```
+{
+  "success": true,
+  "is_ai": true,
+  "explanation": "Tìm kiếm áo có giá dưới 500.000 VND",
+  "parsed_criteria": {"category":"Shirt","max_price":500000,"keywords":["áo"]},
+  "products": [ ... ]
+}
+```
 
 ### 2. **Tìm Kiếm Keyword (Fallback)**
-- Tìm theo tên sản phẩm, danh mục, giá
-- Tác dụng khi API Gemini lỗi
-- Nhanh và đáng tin cậy
+- Nếu không có `GROQ_API_KEY` hoặc Groq trả lỗi, hệ thống tự chuyển sang tìm kiếm từ khóa (name, description, category) làm fallback.
 
 ### 3. **Lọc Nâng Cao**
 - Lọc theo danh mục
@@ -314,7 +327,15 @@ Content-Type: application/json
 
 1. **Database**: Sử dụng MySQL (database `reactjs_final`, user: `root`)
 2. **API URL**: Frontend hardcoded API tại `http://127.0.0.1:8000/api/` - cần cập nhật `.env` nếu production
-3. **Gemini API**: Cần thiết lập `GEMINI_API_KEY` trong `.env.example` nếu muốn dùng AI search
+3. **Groq API**: Cần thiết lập `GROQ_API_KEY` trong `backend/.env` để bật tính năng tìm kiếm AI. Sau khi cập nhật `.env` chạy:
+
+```bash
+cd backend
+php artisan config:clear
+php artisan cache:clear
+```
+
+Lưu ý: nếu API key thay đổi, chạy `config:clear` để Laravel load lại biến môi trường.
 4. **CORS**: Đã cấu hình cho phép tất cả origins (có thể hạn chế trong production)
 5. **Images**: Hình ảnh sản phẩm nằm trong `my-app/public/img/products/`
 
