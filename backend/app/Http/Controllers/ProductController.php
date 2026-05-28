@@ -28,43 +28,108 @@ class ProductController extends Controller
             ]);
         }
 
-        $apiKey = env('GEMINI_API_KEY');
+        $apiKey = env('GROQ_API_KEY');
         $parsed = null;
         $isAi = false;
 
         if (!empty($apiKey)) {
+            Log::debug('GROQ_API_KEY present', ['len' => strlen($apiKey)]);
             try {
+                Log::debug('Entering Groq call block');
                 $prompt = $this->buildPrompt($query);
-                
+
+                $model = 'llama-3.3-70b-versatile';
+
                 $response = Http::withHeaders([
                     'Content-Type' => 'application/json',
-                ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={$apiKey}", [
-                    'contents' => [
-                        [
-                            'parts' => [
-                                ['text' => $prompt]
-                            ]
-                        ]
+                    'Authorization' => "Bearer {$apiKey}",
+                ])->post("https://api.groq.com/openai/v1/chat/completions", [
+                    'model' => $model,
+                    'messages' => [
+                        ['role' => 'user', 'content' => $prompt]
                     ],
-                    'generationConfig' => [
-                        'responseMimeType' => 'application/json'
-                    ]
+                    // Note: Groq's response formatting options may differ from OpenAI's.
+                    'response_format' => ['type' => 'json_object'],
+                    'temperature' => 0.1,
                 ]);
+
+                // If the model was deprecated, try a recommended replacement once
+                if (! $response->successful()) {
+                    $body = $response->body();
+                    Log::error('Groq API request failed: ' . $body);
+                    if (stripos($body, 'model_decommissioned') !== false || stripos($body, 'decommissioned') !== false) {
+                        // mapping of deprecated -> replacement (expand as needed)
+                        $replacements = [
+                            'llama-3.1-70b-versatile' => 'llama-3.3-70b-versatile',
+                        ];
+                        if (isset($replacements[$model])) {
+                            $newModel = $replacements[$model];
+                            Log::info('Retrying Groq request with replacement model: ' . $newModel);
+                            $response = Http::withHeaders([
+                                'Content-Type' => 'application/json',
+                                'Authorization' => "Bearer {$apiKey}",
+                            ])->post("https://api.groq.com/openai/v1/chat/completions", [
+                                'model' => $newModel,
+                                'messages' => [
+                                    ['role' => 'user', 'content' => $prompt]
+                                ],
+                                'response_format' => ['type' => 'json_object'],
+                                'temperature' => 0.1,
+                            ]);
+                        }
+                    }
+                }
 
                 if ($response->successful()) {
                     $result = $response->json();
-                    $textResponse = $result['candidates'][0]['content']['parts'][0]['text'] ?? null;
+                    // Log raw response for debugging (can be noisy in production)
+                    Log::debug('Groq raw response', $result ?: []);
+
+                    // Try several possible locations for the model text
+                    $textResponse = null;
+                    if (isset($result['choices'][0]['message']['content'])) {
+                        $textResponse = $result['choices'][0]['message']['content'];
+                    } elseif (isset($result['choices'][0]['text'])) {
+                        $textResponse = $result['choices'][0]['text'];
+                    } elseif (isset($result['output'][0]['content'][0]['text'])) {
+                        $textResponse = $result['output'][0]['content'][0]['text'];
+                    }
+
                     if ($textResponse) {
-                        $parsed = json_decode($textResponse, true);
-                        if (json_last_error() === JSON_ERROR_NONE) {
+                        // Remove surrounding markdown fences (```json / ```), whitespace
+                        $cleanJson = preg_replace('/(^```(?:json)?\s*|\s*```$)/i', '', trim($textResponse));
+
+                        // First attempt to decode directly
+                        $parsed = json_decode($cleanJson, true);
+
+                        // If decode failed or produced non-array, try to extract a JSON object from the text
+                        if ((json_last_error() !== JSON_ERROR_NONE) || !is_array($parsed)) {
+                            if (json_last_error() !== JSON_ERROR_NONE) {
+                                Log::warning('Initial JSON decode failed: ' . json_last_error_msg());
+                            }
+
+                            $start = strpos($cleanJson, '{');
+                            $end = strrpos($cleanJson, '}');
+                            if ($start !== false && $end !== false && $end > $start) {
+                                $maybe = substr($cleanJson, $start, $end - $start + 1);
+                                $maybeParsed = json_decode($maybe, true);
+                                if (json_last_error() === JSON_ERROR_NONE && is_array($maybeParsed)) {
+                                    $parsed = $maybeParsed;
+                                } else {
+                                    Log::warning('Attempted extracting JSON object failed: ' . json_last_error_msg());
+                                }
+                            }
+                        }
+
+                        if (is_array($parsed) && json_last_error() === JSON_ERROR_NONE) {
                             $isAi = true;
                         }
                     }
                 } else {
-                    Log::error('Gemini API request failed: ' . $response->body());
+                    Log::error('Groq API request failed: ' . $response->body());
                 }
             } catch (\Exception $e) {
-                Log::error('Error calling Gemini API: ' . $e->getMessage());
+                Log::error('Error calling Groq API: ' . $e->getMessage());
             }
         }
 
@@ -146,7 +211,7 @@ class ProductController extends Controller
                 'total' => $products->total(),
             ],
             'is_ai' => false,
-            'explanation' => 'Tìm kiếm cơ bản với từ khóa: "' . htmlspecialchars($query) . '" (Bật Gemini API Key ở backend để có kết quả tìm kiếm AI thông minh hơn).'
+            'explanation' => 'Tìm kiếm cơ bản với từ khóa: "' . htmlspecialchars($query) . '" (Bật API Key ở backend để có kết quả tìm kiếm AI thông minh hơn).'
         ]);
     }
 
@@ -168,43 +233,25 @@ class ProductController extends Controller
     }
 
     private function buildPrompt($query)
+        {
+            return <<<PROMPT
+    Bạn là AI hỗ trợ tìm kiếm cho cửa hàng thời trang. 
+    Nhiệm vụ: Phân tích câu truy vấn của người dùng và trả về JSON.
+
+    DANH MỤC: "Coat", "Shirt", "Jeans", "Dress", "Shoes", "Bag", "Hat", "Towel", "Accessories".
+    GIÁ: Trả về số nguyên VND (ví dụ: 300k = 300000).
+
+    Câu hỏi của người dùng: "${query}"
+
+    Yêu cầu output duy nhất 1 đối tượng JSON, không giải thích gì thêm, đúng cấu trúc sau:
     {
-        return <<<PROMPT
-You are an AI Search Assistant for a Vietnamese fashion e-commerce store.
-
-PRODUCT CATEGORIES (8 categories):
-- "Coat": Áo khoác, áo len, áo gió, áo sweater, áo jacket, áo hoodie
-- "Shirt": Áo thun, áo polo, áo sơ mi, áo croptop, áo Henley
-- "Jeans": Quần jeans, quần denim, quần short jeans, quần jean skinny/baggy/slim
-- "Dress": Váy, đầm, váy maxi, váy midi, đầm bodycon, đầm wrap
-- "Shoes": Giày thể thao, giày sneaker, giày Converse, boot, sandal, dép
-- "Bag": Túi xách, balo, túi tote, túi clutch, túi đeo chéo, túi vai
-- "Hat": Mũ, nón, snapback, bucket hat, baseball cap, beanie, nón lưỡi trai
-- "Towel": Khăn quàng cổ, khăn len, khăn tay, khăn thể thao, khăn lụa
-- "Accessories": Kính mắt, kính râm, thắt lưng, vòng tay, dây chuyền, ví
-
-PRICE FORMAT: All prices are in Vietnamese Dong (VND).
-Examples: 149000 = 149,000 VND = 149k, 299000 = 299k, 799000 = 799k, 1290000 = 1,290k = 1.29 triệu.
-When user says: "dưới 300k" → max_price: 300000 | "khoảng 500k" → min: 400000, max: 600000 | "từ 200k đến 500k" → min: 200000, max: 500000 | "rẻ nhất" → sort_by: "price_asc" | "đắt nhất" → sort_by: "price_desc"
-
-Given the user's natural language search query in Vietnamese: "${query}"
-
-Your tasks:
-1. Identify the product category if mentioned (return exactly one of the 9 category values above, or null).
-2. Extract price range in full VND numbers (e.g. 300000, NOT 300).
-3. Extract relevant keywords to search in product name/description (Vietnamese or English).
-4. Determine sort order if user mentions cheapest/most expensive.
-5. Write a short, friendly explanation in Vietnamese about what you are searching for.
-
-Output ONLY a valid JSON object with this exact structure (no markdown, no backticks):
-{
-  "category": string or null (must be exactly one of: "Coat", "Shirt", "Jeans", "Dress", "Shoes", "Bag", "Hat", "Towel", "Accessories", or null),
-  "min_price": number or null (full VND e.g. 200000),
-  "max_price": number or null (full VND e.g. 500000),
-  "keywords": string[] (search keywords in name/description),
-  "sort_by": "price_asc" or "price_desc" or null,
-  "explanation": string (Vietnamese explanation, friendly tone)
-}
-PROMPT;
+    "category": string|null,
+    "min_price": number|null,
+    "max_price": number|null,
+    "keywords": string[],
+    "sort_by": "price_asc"|"price_desc"|null,
+    "explanation": "Câu giải thích thân thiện bằng tiếng Việt"
     }
+    PROMPT;
+        }
 }
