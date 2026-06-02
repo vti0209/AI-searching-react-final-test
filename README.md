@@ -61,43 +61,112 @@ Database: **MySQL** (reactjs_final)
 
 ```
 ReactJs_Final/
-├─ backend/                      # Laravel Backend
+├─ baocao.md                     # Báo cáo số 1 - Tổng quan dự án
+├─ BAOCAO2.md                    # Báo cáo số 2 - Chi tiết tính năng tìm kiếm AI
+├─ README.md                     # Tài liệu này
+│
+├─ backend/                      # 🔧 Laravel Backend (API Server)
 │  ├─ app/
-│  │  ├─ Http/Controllers/       # API Controllers
-│  │  │  └─ ProductController.php
-│  │  └─ Models/
-│  │     └─ Product.php
+│  │  ├─ Http/
+│  │  │  └─ Controllers/
+│  │  │     └─ ProductController.php      # Xử lý /api/products
+│  │  ├─ Models/
+│  │  │  └─ Product.php                   # Database model
+│  │  ├─ Services/
+│  │  │  └─ ProductSearchService.php      # Groq AI integration
+│  │  └─ Providers/
+│  │     └─ AppServiceProvider.php
+│  ├─ bootstrap/
+│  │  ├─ app.php
+│  │  ├─ providers.php
+│  │  └─ cache/
 │  ├─ config/                    # Cấu hình ứng dụng
-│  ├─ database/
-│  │  ├─ migrations/             # Database migrations
-│  │  └─ seeders/
-│  │     └─ ProductSeeder.php   # 63 sản phẩm
-│  ├─ routes/
-│  │  └─ api.php                # API routes
-│  ├─ .env.example              # Config template
-│  ├─ composer.json             # PHP dependencies
-│  └─ artisan                   # Laravel CLI
-│
-├─ my-app/                       # React Frontend
-│  ├─ src/
-│  │  ├─ components/            # React components
-│  │  ├─ pages/
-│  │  │  ├─ HomePage.jsx        # Trang chủ
-│  │  │  ├─ ShopPage.jsx        # Trang sản phẩm
-│  │  │  └─ ProductDetailPage.jsx # Chi tiết sản phẩm
-│  │  ├─ layout/
-│  │  │  └─ MainLayout.jsx      # Layout chính
-│  │  ├─ css/                   # Styles
-│  │  ├─ App.jsx                # Main app
-│  │  └─ index.jsx              # Entry point
-│  ├─ public/
-│  │  ├─ img/products/          # Hình ảnh sản phẩm
+│  │  ├─ app.php
+│  │  ├─ auth.php
+│  │  ├─ cache.php
+│  │  ├─ cors.php
+│  │  ├─ database.php
 │  │  └─ ...
-│  ├─ package.json              # JS dependencies
-│  └─ vite.config.js            # Vite config
+│  ├─ database/
+│  │  ├─ database.sql            # Backup database
+│  │  ├─ factories/
+│  │  │  └─ UserFactory.php
+│  │  ├─ migrations/
+│  │  │  └─ create_products_table.php     # Tạo bảng products
+│  │  └─ seeders/
+│  │     ├─ DatabaseSeeder.php
+│  │     └─ ProductSeeder.php            # 63 sản phẩm mẫu
+│  ├─ public/
+│  │  ├─ index.php               # Laravel entry point
+│  │  ├─ robots.txt
+│  │  └─ storage/
+│  ├─ resources/
+│  │  ├─ css/
+│  │  │  └─ app.css
+│  │  ├─ js/
+│  │  │  ├─ app.js
+│  │  │  └─ bootstrap.js
+│  │  └─ views/
+│  │     └─ welcome.blade.php
+│  ├─ routes/
+│  │  ├─ api.php                # ⭐ API routes (routes chính)
+│  │  ├─ web.php
+│  │  └─ console.php
+│  ├─ storage/
+│  │  ├─ app/
+│  │  ├─ framework/
+│  │  └─ logs/
+│  ├─ vendor/                    # PHP dependencies (composer packages)
+│  ├─ .env.example               # Config template
+│  ├─ .env                       # Config thực tế (GROQ_API_KEY, DB...)
+│  ├─ composer.json              # PHP dependencies
+│  ├─ package.json               # NPM dependencies (Vite)
+│  ├─ vite.config.js             # Vite config
+│  ├─ artisan                    # Laravel CLI
+│  └─ README.md
 │
-└─ README.md                     # Tài liệu này
+├─ my-app/                       # 🎨 React Frontend (UI)
+│  ├─ src/
+│  │  ├─ components/             # React components tái sử dụng
+│  │  ├─ pages/                  # Các trang chính
+│  │  │  ├─ HomePage.jsx
+│  │  │  ├─ ShopPage.jsx         # ⭐ Trang tìm kiếm sản phẩm
+│  │  │  └─ ProductDetailPage.jsx
+│  │  ├─ layout/
+│  │  │  └─ MainLayout.jsx
+│  │  ├─ css/                    # Stylesheets
+│  │  ├─ utils/                  # Hàm tiện ích
+│  │  ├─ App.jsx                 # Root component
+│  │  ├─ App.css
+│  │  └─ index.jsx               # Entry point
+│  ├─ public/
+│  │  ├─ img/                    # Hình ảnh
+│  │  │  ├─ products/            # Ảnh sản phẩm
+│  │  │  └─ ...
+│  │  ├─ css/
+│  │  ├─ js/
+│  │  ├─ fonts/
+│  │  ├─ Template/
+│  │  ├─ manifest.json
+│  │  └─ robots.txt
+│  ├─ index.html
+│  ├─ package.json               # JS dependencies
+│  ├─ vite.config.js             # Vite config
+│  ├─ .env.example               # Config template (VITE_API_URL)
+│  ├─ .env                       # Config thực tế
+│  ├─ README.md
+│  └─ node_modules/              # JS dependencies (npm packages)
+│
+└─ docs/                         # (Tùy chọn) Tài liệu chi tiết
 ```
+
+### 📍 **Files Quan Trọng:**
+- **Backend API:** `backend/routes/api.php` (định nghĩa routes)
+- **Backend Controller:** `backend/app/Http/Controllers/ProductController.php` (xử lý logic)
+- **Groq Service:** `backend/app/Services/ProductSearchService.php` (AI search)
+- **Frontend Main:** `my-app/src/pages/ShopPage.jsx` (giao diện tìm kiếm)
+- **Database Setup:** `backend/database/seeders/ProductSeeder.php` (63 sản phẩm)
+- **Reports:** `BAOCAO2.md` (chi tiết luồng tìm kiếm AI)
 
 ---
 
@@ -162,27 +231,75 @@ npm run dev
 
 ## 🔑 Các API Endpoints
 
-### Lấy Sản Phẩm
+### ✅ 1. Lấy Danh Sách Sản Phẩm (Có Phân Trang)
 
 ```bash
-# Lấy danh sách (phân trang)
-GET http://127.0.0.1:8000/api/products
-# Query params: page=1, limit=8
+GET http://127.0.0.1:8000/api/products?page=1
 
 # Response:
 {
   "success": true,
-  "products": [...],
+  "products": [
+    {
+      "id": 1,
+      "name": "Áo Len Vặn Eo Cổ V Màu Vàng",
+      "category": "Coat",
+      "price": "299000.00",
+      "image": "img/products/product-1.jpg",
+      "description": "Áo len cao cấp..."
+    },
+    ...
+  ],
   "pagination": {
     "current_page": 1,
     "last_page": 8,
     "total": 63
-  }
+  },
+  "is_ai": false,
+  "explanation": null
 }
 ```
 
+### ✅ 2. Tìm Kiếm Với AI
+
 ```bash
-# Lấy chi tiết sản phẩm
+GET http://127.0.0.1:8000/api/products?query=áo%20khoác%20màu%20xanh&page=1
+
+# Request từ Frontend:
+# /api/products?query=áo khoác xanh&page=1
+
+# Response:
+{
+  "success": true,
+  "products": [
+    {
+      "id": 3,
+      "name": "Áo Khoác Xanh Navy",
+      "category": "Coat",
+      "price": "450000.00",
+      "image": "img/products/product-3.jpg"
+    },
+    ...
+  ],
+  "pagination": {
+    "current_page": 1,
+    "last_page": 1,
+    "total": 5
+  },
+  "is_ai": true,
+  "explanation": "Tôi tìm thấy áo khoác xanh trong danh sách cho bạn"
+}
+```
+
+**Quy trình:**
+1. Frontend gửi `?query=áo khoác xanh`
+2. Backend gọi **ProductSearchService** → Groq API phân tích
+3. AI trả về: category = "Coat", keywords = ["xanh", "khoác"]
+4. Backend lọc DB theo tiêu chí → Trả về kết quả
+
+### ✅ 3. Lấy Chi Tiết 1 Sản Phẩm
+
+```bash
 GET http://127.0.0.1:8000/api/products/1
 
 # Response:
@@ -194,26 +311,10 @@ GET http://127.0.0.1:8000/api/products/1
     "category": "Coat",
     "price": "299000.00",
     "image": "img/products/product-1.jpg",
-    "description": "...",
+    "description": "Áo len cao cấp, chất lượng tốt...",
     "created_at": "2026-05-25T07:44:19.000000Z",
     "updated_at": "2026-05-25T07:44:19.000000Z"
   }
-}
-```
-
-### Tìm Kiếm
-
-```bash
-# Tìm kiếm (AI + Keyword)
-POST http://127.0.0.1:8000/api/search
-Content-Type: application/json
-
-{
-  "query": "áo len màu vàng",
-  "category": "Coat",        # Optional
-  "priceMin": 100000,        # Optional
-  "priceMax": 500000,        # Optional
-  "limit": 10
 }
 ```
 
@@ -248,58 +349,108 @@ Content-Type: application/json
 
 ## 🔍 Tính Năng Tìm Kiếm (AI + Fallback)
 
-### 1. **Tìm Kiếm AI (Groq)**
-- Dự án đã chuyển từ Gemini sang **Groq** (do Gemini quota/deprecation trong quá trình phát triển).
-- Backend gọi Groq thông qua một service tách riêng: `App\\Services\\ProductSearchService`.
-- Model mặc định hiện là `llama-3.3-70b-versatile` (service có retry khi Groq báo model decommissioned).
-- Groq trả về một đối tượng JSON mô tả tiêu chí tìm kiếm (category, min_price, max_price, keywords, sort_by, explanation). Backend sẽ parse và áp filter vào DB.
+### ✅ Tìm Kiếm AI (Groq API)
+- **Model:** `llama-3.3-70b-versatile` (Groq)
+- **Quy trình:**
+  1. Frontend gửi `?query=áo khoác xanh giá dưới 500k`
+  2. Backend gọi `ProductSearchService->analyze()` 
+  3. Groq API phân tích → Trả về JSON: `{category: "Coat", keywords: ["xanh"], max_price: 500000}`
+  4. Backend lọc DB theo tiêu chí → Trả về kết quả có `is_ai: true`
+- **Ví dụ:**
+  ```bash
+  GET http://127.0.0.1:8000/api/products?query=áo khoác xanh giá dưới 500k
+  ```
+  Response:
+  ```json
+  {
+    "success": true,
+    "is_ai": true,
+    "explanation": "Tìm kiếm áo khoác màu xanh với giá dưới 500 nghìn VND",
+    "products": [ ... ],
+    "pagination": { ... }
+  }
+  ```
 
-Ví dụ query test:
-```
-GET http://127.0.0.1:8000/api/products?query=Tìm áo dưới 500k
-```
-Response mẫu (tóm tắt):
-```
-{
-  "success": true,
-  "is_ai": true,
-  "explanation": "Tìm kiếm áo có giá dưới 500.000 VND",
-  "parsed_criteria": {"category":"Shirt","max_price":500000,"keywords":["áo"]},
-  "products": [ ... ]
-}
-```
+### ⚠️ Fallback - Tìm Kiếm Keyword
+- **Kích hoạt khi:**
+  - Không có `GROQ_API_KEY` trong `.env`
+  - Groq API trả lỗi
+  - API timeout
+- **Cách hoạt động:** Tìm từ khóa trong `name` và `description` của sản phẩm
+- **Response:**
+  ```json
+  {
+    "success": true,
+    "is_ai": false,
+    "explanation": null,
+    "products": [ ... ]
+  }
+  ```
 
-### 2. **Tìm Kiếm Keyword (Fallback)**
-- Nếu không có `GROQ_API_KEY` hoặc Groq trả lỗi, hệ thống tự chuyển sang tìm kiếm từ khóa (name, description, category) làm fallback.
-
-### 3. **Lọc Nâng Cao**
-- Lọc theo danh mục
-- Lọc theo khoảng giá
-- Kết hợp với tìm kiếm
+### 🔐 Cấu Hình Groq API
+Thêm vào `backend/.env`:
+```env
+GROQ_API_KEY=gsk_XXXXXXXXXXXXX
+```
+Lấy API key từ: https://console.groq.com/keys
 
 ---
 
 ## 🛠️ Công Nghệ Sử Dụng
 
-### Frontend
-```json
-{
-  "react": "^18.0",
-  "react-router-dom": "^6.0",
-  "bootstrap": "^5.0",
-  "axios": "^1.6",
-  "vite": "^8.0"
-}
+### Frontend Stack
+- **React 18** - UI framework
+- **React Router v6** - Navigation
+- **Vite** - Build tool
+- **Bootstrap 5** - CSS Framework
+- **Axios** - HTTP client
+
+### Backend Stack
+- **Laravel 11** - Web framework
+- **MySQL** - Database
+- **Groq API** - AI model (LLaMA 3.3-70b)
+- **PHP 8.2+** - Runtime
+
+### Công Nghệ Khác
+- **Node.js / npm** - Package management
+- **Composer** - PHP package manager
+- **REST API** - Backend communication
+
+## ⚙️ Yêu Cầu & Cài Đặt Hệ Thống
+
+### 📋 Yêu cầu tối thiểu:
+- **PHP**: >= 8.2
+- **Node.js**: >= 16.0
+- **MySQL**: >= 5.7 hoặc MariaDB >= 10.3
+- **npm**: >= 8.0
+- **Composer**: >= 2.0
+
+### 🔐 Biến Môi Trường Quan Trọng:
+
+**Backend** (`backend/.env`):
+```env
+APP_NAME=FASHIAI
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+# Database
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=reactjs_final
+DB_USERNAME=root
+DB_PASSWORD=
+
+# Groq API (TÌM KIẾM AI)
+GROQ_API_KEY=gsk_XXXXXXXXXXXXX  # Lấy từ https://console.groq.com/keys
+
+# CORS
+CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
 ```
 
-### Backend
-```json
-{
-  "laravel": "^11.0",
-  "php": "^8.2",
-  "sqlite": "latest",
-  "google/generative-ai": "^1.0"
-}
+**Frontend** (`my-app/.env`):
+```env
+VITE_API_URL=http://127.0.0.1:8000/api
 ```
 
 ---
@@ -309,15 +460,12 @@ Response mẫu (tóm tắt):
 | **Chỉ số** | **Giá trị** |
 |---|---|
 | 📦 Tổng sản phẩm | 63 |
-| 📄 Trang sản phẩm | 8 |
+| 📄 Trang trên UI | 8 (phân trang 8 item/page) |
 | 🏷️ Danh mục | 9 |
-| 📍 API endpoints | 3+ |
+| 📍 API endpoints | 3 chính |
 | ⚛️ React components | 10+ |
-| 🎯 Pages | 3 |
-
----
-
-## ⚙️ Yêu Cầu Hệ Thống
+| 🎯 Routes | 4 |
+| 💾 Database tables | 2 (products, users) |
 
 
 
@@ -325,30 +473,74 @@ Response mẫu (tóm tắt):
 
 ## 📝 Ghi Chú & Lưu Ý
 
-1. **Database**: Sử dụng MySQL (database `reactjs_final`, user: `root`)
-2. **API URL**: Frontend hardcoded API tại `http://127.0.0.1:8000/api/` - cần cập nhật `.env` nếu production
-3. **Groq API**: Cần thiết lập `GROQ_API_KEY` trong `backend/.env` để bật tính năng tìm kiếm AI. Sau khi cập nhật `.env` chạy:
+### ✅ Cấu Hình Quan Trọng:
 
-```bash
-cd backend
-php artisan config:clear
-php artisan cache:clear
-```
+1. **Database MySQL:**
+   - Database: `reactjs_final`
+   - User: `root` (mặc định)
+   - Chạy migration/seeding để tạo 63 sản phẩm:
+     ```bash
+     cd backend
+     php artisan migrate:refresh --seed
+     ```
 
-Lưu ý: nếu API key thay đổi, chạy `config:clear` để Laravel load lại biến môi trường.
-4. **CORS**: Đã cấu hình cho phép tất cả origins (có thể hạn chế trong production)
-5. **Images**: Hình ảnh sản phẩm nằm trong `my-app/public/img/products/`
+2. **Groq API (Bắt buộc cho AI Search):**
+   - Đăng ký tại: https://console.groq.com
+   - Tạo API key
+   - Thêm vào `backend/.env`: `GROQ_API_KEY=gsk_XXXXXXXXXXXXX`
+   - Sau khi cập nhật `.env`, chạy:
+     ```bash
+     cd backend
+     php artisan config:clear
+     php artisan cache:clear
+     ```
+   - **Nếu không có API key**: Hệ thống sẽ fallback sang tìm kiếm keyword thường (vẫn hoạt động bình thường)
+
+3. **Frontend API URL:**
+   - Kiểm tra `my-app/.env` để `VITE_API_URL` đúng
+   - Mặc định: `http://127.0.0.1:8000/api`
+   - Nếu backend chạy ở port khác, cập nhật URL này
+
+4. **CORS Configuration:**
+   - Đã cấu hình trong `backend/config/cors.php`
+   - Cho phép request từ frontend (port 5173)
+   - Trong production, hạn chế origins cụ thể
+
+5. **Images & Assets:**
+   - Hình ảnh sản phẩm: `my-app/public/img/products/product-{id}.jpg`
+   - Favicon & manifest: `my-app/public/`
 
 ---
 
-## 🚧 Phát Triển Tiếp Theo
+## 🚧 Phát Triển Tiếp Theo (Scope Mở Rộng)
 
-- ❌ Hệ thống giỏ hàng (Cart)
-- ❌ Checkout & Thanh toán
-- ❌ User authentication & Account
-- ❌ Order management
-- ❌ Admin dashboard
-- ❌ Unit tests & E2E tests
+- ❌ Giỏ hàng (Cart system)
+- ❌ Checkout & Thanh toán (Payment gateway)
+- ❌ User authentication & Account (Login/Register)
+- ❌ Order management (Lịch sử mua hàng)
+- ❌ Admin dashboard (Quản lý sản phẩm)
+- ❌ Unit tests & E2E tests (Testing)
+- ❌ Wishlist feature
+- ❌ Product reviews & ratings
+
+---
+
+## 📚 Tài Liệu Tham Khảo
+
+| **Công Nghệ** | **Liên Kết** |
+|---|---|
+| React Docs | https://react.dev |
+| Laravel Docs | https://laravel.com/docs |
+| Groq API | https://console.groq.com |
+| Bootstrap | https://getbootstrap.com |
+| Vite | https://vitejs.dev |
+
+---
+
+## 📁 Báo Cáo & Tài Liệu Dự Án
+
+- 📄 **[BAOCAO.md](baocao.md)** - Báo cáo số 1: Tổng quan dự án
+- 📄 **[BAOCAO2.md](BAOCAO2.md)** - Báo cáo số 2: Chi tiết luồng tìm kiếm AI (22 phần)
 
 ---
 
@@ -356,19 +548,21 @@ Lưu ý: nếu API key thay đổi, chạy `config:clear` để Laravel load l�
 
 **Văn Tiết** (VanTiet / End123)
 
-📧 Email: End123@finaltest.PNV.com
-📍 Địa chỉ: Số 123, Đường ABC, Quận Sơn Trà, TP. Đà Nẵng
+📧 Email: End123@finaltest.PNV.com  
+📍 Địa chỉ: Số 123, Đường ABC, Quận Sơn Trà, TP. Đà Nẵng  
 📞 Phone: (+84) 373 532 152
 
 ---
 
 ## 📄 License
 
-Dự án này là bài thi cuối kỳ. Không được sử dụng thương mại.
+🔐 **Bản quyền:** Dự án này là bài thi cuối kỳ môn **Thiết kế Web Nâng cao** & **ReactJS**.  
+❌ **Không được phép:** Sử dụng thương mại, sao chép hoặc phân phối mà không có sự cho phép.
 
 ---
 
-**Ngày cập nhật**: 25/05/2026  
-**Phiên bản**: 1.0.0
+**Ngày tạo**: 25/05/2026  
+**Ngày cập nhật**: 02/06/2026  
+**Phiên bản**: 1.1.0
 
 ✨ *Happy Shopping with AI!* ✨
