@@ -181,13 +181,18 @@ cd backend
 # Cài đặt dependencies PHP
 composer install
 
-# Copy .env và cấu hình
-cp .env.example .env
+# Cấu hình .env theo đúng tên database bạn đã tạo đoạn sau:
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE= tên database bạn đã tạo
+# DB_USERNAME=root
+# DB_PASSWORD=
 
-# Tạo app key
+# Tạo app key nếu cần
 php artisan key:generate
 
-# Chạy migration và seeding
+# Và Chạy migration và seeding để có đầy đủ giữ liệu test
 php artisan migrate:refresh --seed
 ```
 
@@ -388,6 +393,7 @@ GET http://127.0.0.1:8000/api/products/1
   ```
 
 ###  Cấu Hình Groq API
+##### Đối với bài tập hiện tại tôi đã công khai key mà tôi đã tạo bạn chỉ cần xem lại và chạy test được 
 Thêm vào `backend/.env`:
 ```env
 GROQ_API_KEY=gsk_XXXXXXXXXXXXX
@@ -437,7 +443,7 @@ APP_URL=http://localhost:8000
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=reactjs_final
+DB_DATABASE=
 DB_USERNAME=root
 DB_PASSWORD=
 
@@ -549,7 +555,7 @@ VITE_API_URL=http://127.0.0.1:8000/api
 
 Email: End123@finaltest.PNV.com  
 Địa chỉ: Số 123, Đường ABC, Quận Sơn Trà, TP. Đà Nẵng  
-Phone: (+84) 373 532 152
+Phone: (+84) 111 222 321
 
 ---
 
@@ -561,7 +567,6 @@ Phone: (+84) 373 532 152
 ---
 
 **Ngày tạo**: 25/05/2026  
-**Ngày cập nhật**: 02/06/2026  
-**Phiên bản**: 1.1.0
+**Ngày cập nhật**: 04/06/2026  
 
  *Happy Shopping with AI!* 
