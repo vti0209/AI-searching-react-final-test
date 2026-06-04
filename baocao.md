@@ -8,4 +8,4 @@
 
 ## Demo minh họa
 
-### Note: trong quá trình làm giải thích càng rõ càng to -> OK
+### Note: trong quá trình làm giải thích càng rõ càng to -> OKe

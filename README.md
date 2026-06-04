@@ -1,4 +1,4 @@
-# 🛍️ Fashion E-commerce Platform - MTYTSHOP
+#  Fashion E-commerce Platform - MTYTSHOP
 
 Một nền tảng thương mại điện tử thời trang được xây dựng bằng **React + Laravel** với tính năng tìm kiếm AI tích hợp Groq API.
 
@@ -6,44 +6,44 @@ Một nền tảng thương mại điện tử thời trang được xây dựng
 
 ---
 
-## 📋 Tổng Quan Dự Án
+##  Tổng Quan Dự Án
 
 | **Thành phần** | **Công nghệ** | **Trạng thái** |
 |---|---|---|
-| **Frontend** | React 18 + Vite + Bootstrap 5 | ✅ Hoàn thành |
-| **Backend** | Laravel 11 + SQLite | ✅ Hoàn thành |
-| **Database** | MySQL (63 sản phẩm) | ✅ Hoàn thành |
-| **Search** | Groq API + Keyword Search | ✅ Hoàn thành |
-| **UI/UX** | Responsive Design | ✅ Hoàn thành |
+| **Frontend** | React 18 + Vite + Bootstrap 5 |  Hoàn thành |
+| **Backend** | Laravel 11 + SQLite |  Hoàn thành |
+| **Database** | MySQL (63 sản phẩm) |  Hoàn thành |
+| **Search** | Groq API + Keyword Search |  Hoàn thành |
+| **UI/UX** | Responsive Design |  Hoàn thành |
 
 ---
 
-## 🎯 Các Tính Năng Đã Hoàn Thành
+##  Các Tính Năng Đã Hoàn Thành
 
-### ✅ Frontend (React)
-- 📱 Giao diện responsive với Bootstrap 5
-- 🏠 Trang chủ với danh mục nổi bật
-- 🛒 Trang sản phẩm với phân trang (63 sản phẩm / 8 trang)
-- 🔍 Tìm kiếm thông minh:
+###  Frontend (React)
+-  Giao diện responsive với Bootstrap 5
+-  Trang chủ với danh mục nổi bật
+-  Trang sản phẩm với phân trang (63 sản phẩm / 8 trang)
+-  Tìm kiếm thông minh:
   - **Tìm kiếm AI** sử dụng Gemini 2.5 Flash
   - **Tìm kiếm Keyword** fallback (tên, danh mục, giá)
   - **Lọc theo**: Danh mục, khoảng giá
-- 📄 Trang chi tiết sản phẩm
-- 🎨 Thiết kế hiện đại, dễ sử dụng
+-  Trang chi tiết sản phẩm
+-  Thiết kế hiện đại, dễ sử dụng
 
-### ✅ Backend (Laravel)
-- 🔗 RESTful API complete
-- 📦 Endpoints chính:
+###  Backend (Laravel)
+-  RESTful API complete
+-  Endpoints chính:
   - `GET /api/products` - Lấy danh sách sản phẩm (có phân trang)
   - `GET /api/products/{id}` - Lấy chi tiết sản phẩm
   - `GET /api/products` - Lấy danh sách sản phẩm (hỗ trợ query `?query=...` để tìm kiếm AI hoặc tìm kiếm từ khóa)
-- 🗄️ Database SQLite với 9 danh mục sản phẩm
-- 🔐 CORS được cấu hình
+-  Database SQLite với 9 danh mục sản phẩm
+-  CORS được cấu hình
 
-### ✅ Database (MySQL)
+###  Database (MySQL)
 ```
 Database: **MySQL** (reactjs_final)
-📦 63 Sản phẩm được phân loại:
+ 63 Sản phẩm được phân loại:
   ├─ 10 Áo Khoác (Coat)
   ├─ 8 Áo Thun (Shirt)
   ├─ 7 Quần Jeans (Jeans)
@@ -57,7 +57,7 @@ Database: **MySQL** (reactjs_final)
 
 ---
 
-## 📁 Cấu Trúc Dự Án
+##  Cấu Trúc Dự Án
 
 ```
 ReactJs_Final/
@@ -160,7 +160,7 @@ ReactJs_Final/
 └─ docs/                         # (Tùy chọn) Tài liệu chi tiết
 ```
 
-### 📍 **Files Quan Trọng:**
+###  **Files Quan Trọng:**
 - **Backend API:** `backend/routes/api.php` (định nghĩa routes)
 - **Backend Controller:** `backend/app/Http/Controllers/ProductController.php` (xử lý logic)
 - **Groq Service:** `backend/app/Services/ProductSearchService.php` (AI search)
@@ -170,9 +170,9 @@ ReactJs_Final/
 
 ---
 
-## 🚀 Cách Chạy Dự Án
+##  Cách Chạy Dự Án
 
-### 1️⃣ Chuẩn Bị Môi Trường
+### 1️ Chuẩn Bị Môi Trường
 
 **Backend (Laravel):**
 ```bash
@@ -201,7 +201,7 @@ npm install
 
 ---
 
-### 2️⃣ Khởi Động Servers
+### 2️ Khởi Động Servers
 
 **Terminal 1 - Backend (Port 8000):**
 ```bash
@@ -215,8 +215,8 @@ cd my-app
 npm run dev
 ```
 
-✅ Frontend sẽ tự động mở ở: **http://localhost:5173**
-✅ Backend API: **http://127.0.0.1:8000/api**
+ Frontend sẽ tự động mở ở: **http://localhost:5173**
+ Backend API: **http://127.0.0.1:8000/api**
 
 ---
 
@@ -229,9 +229,9 @@ npm run dev
 
 ---
 
-## 🔑 Các API Endpoints
+##  Các API Endpoints
 
-### ✅ 1. Lấy Danh Sách Sản Phẩm (Có Phân Trang)
+###  1. Lấy Danh Sách Sản Phẩm (Có Phân Trang)
 
 ```bash
 GET http://127.0.0.1:8000/api/products?page=1
@@ -260,7 +260,7 @@ GET http://127.0.0.1:8000/api/products?page=1
 }
 ```
 
-### ✅ 2. Tìm Kiếm Với AI
+###  2. Tìm Kiếm Với AI
 
 ```bash
 GET http://127.0.0.1:8000/api/products?query=áo%20khoác%20màu%20xanh&page=1
@@ -297,7 +297,7 @@ GET http://127.0.0.1:8000/api/products?query=áo%20khoác%20màu%20xanh&page=1
 3. AI trả về: category = "Coat", keywords = ["xanh", "khoác"]
 4. Backend lọc DB theo tiêu chí → Trả về kết quả
 
-### ✅ 3. Lấy Chi Tiết 1 Sản Phẩm
+###  3. Lấy Chi Tiết 1 Sản Phẩm
 
 ```bash
 GET http://127.0.0.1:8000/api/products/1
@@ -320,18 +320,18 @@ GET http://127.0.0.1:8000/api/products/1
 
 ---
 
-## 📱 Các Trang & Routes
+##  Các Trang & Routes
 
 | **Route** | **Mô tả** |
 |---|---|
-| `/` | 🏠 Trang chủ |
-| `/shop` | 🛍️ Trang sản phẩm (Phân trang) |
-| `/product/:id` | 📄 Chi tiết sản phẩm |
-| `/cart` | 🛒 Giỏ hàng (Placeholder) |
+| `/` |  Trang chủ |
+| `/shop` |  Trang sản phẩm (Phân trang) |
+| `/product/:id` |  Chi tiết sản phẩm |
+| `/cart` |  Giỏ hàng (Placeholder) |
 
 ---
 
-## 🎨 Danh Mục Sản Phẩm
+## Danh Mục Sản Phẩm
 
 ```
 1. Coat       (Áo Khoác & Áo Len)
@@ -347,9 +347,9 @@ GET http://127.0.0.1:8000/api/products/1
 
 ---
 
-## 🔍 Tính Năng Tìm Kiếm (AI + Fallback)
+##  Tính Năng Tìm Kiếm (AI + Fallback)
 
-### ✅ Tìm Kiếm AI (Groq API)
+###  Tìm Kiếm AI (Groq API)
 - **Model:** `llama-3.3-70b-versatile` (Groq)
 - **Quy trình:**
   1. Frontend gửi `?query=áo khoác xanh giá dưới 500k`
@@ -371,7 +371,7 @@ GET http://127.0.0.1:8000/api/products/1
   }
   ```
 
-### ⚠️ Fallback - Tìm Kiếm Keyword
+###  Fallback - Tìm Kiếm Keyword
 - **Kích hoạt khi:**
   - Không có `GROQ_API_KEY` trong `.env`
   - Groq API trả lỗi
@@ -387,7 +387,7 @@ GET http://127.0.0.1:8000/api/products/1
   }
   ```
 
-### 🔐 Cấu Hình Groq API
+###  Cấu Hình Groq API
 Thêm vào `backend/.env`:
 ```env
 GROQ_API_KEY=gsk_XXXXXXXXXXXXX
@@ -396,7 +396,7 @@ Lấy API key từ: https://console.groq.com/keys
 
 ---
 
-## 🛠️ Công Nghệ Sử Dụng
+##  Công Nghệ Sử Dụng
 
 ### Frontend Stack
 - **React 18** - UI framework
@@ -416,16 +416,16 @@ Lấy API key từ: https://console.groq.com/keys
 - **Composer** - PHP package manager
 - **REST API** - Backend communication
 
-## ⚙️ Yêu Cầu & Cài Đặt Hệ Thống
+##  Yêu Cầu & Cài Đặt Hệ Thống
 
-### 📋 Yêu cầu tối thiểu:
+###  Yêu cầu tối thiểu:
 - **PHP**: >= 8.2
 - **Node.js**: >= 16.0
 - **MySQL**: >= 5.7 hoặc MariaDB >= 10.3
 - **npm**: >= 8.0
 - **Composer**: >= 2.0
 
-### 🔐 Biến Môi Trường Quan Trọng:
+###  Biến Môi Trường Quan Trọng:
 
 **Backend** (`backend/.env`):
 ```env
@@ -455,25 +455,25 @@ VITE_API_URL=http://127.0.0.1:8000/api
 
 ---
 
-## 📊 Thống Kê
+##  Thống Kê
 
 | **Chỉ số** | **Giá trị** |
 |---|---|
-| 📦 Tổng sản phẩm | 63 |
-| 📄 Trang trên UI | 8 (phân trang 8 item/page) |
-| 🏷️ Danh mục | 9 |
-| 📍 API endpoints | 3 chính |
-| ⚛️ React components | 10+ |
-| 🎯 Routes | 4 |
-| 💾 Database tables | 2 (products, users) |
+|  Tổng sản phẩm | 63 |
+|  Trang trên UI | 8 (phân trang 8 item/page) |
+|  Danh mục | 9 |
+|  API endpoints | 3 chính |
+|  React components | 10+ |
+|  Routes | 4 |
+|  Database tables | 2 (products, users) |
 
 
 
 ---
 
-## 📝 Ghi Chú & Lưu Ý
+##  Ghi Chú & Lưu Ý
 
-### ✅ Cấu Hình Quan Trọng:
+###  Cấu Hình Quan Trọng:
 
 1. **Database MySQL:**
    - Database: `reactjs_final`
@@ -512,20 +512,20 @@ VITE_API_URL=http://127.0.0.1:8000/api
 
 ---
 
-## 🚧 Phát Triển Tiếp Theo (Scope Mở Rộng)
+##  Phát Triển Tiếp Theo (Scope Mở Rộng)
 
-- ❌ Giỏ hàng (Cart system)
-- ❌ Checkout & Thanh toán (Payment gateway)
-- ❌ User authentication & Account (Login/Register)
-- ❌ Order management (Lịch sử mua hàng)
-- ❌ Admin dashboard (Quản lý sản phẩm)
-- ❌ Unit tests & E2E tests (Testing)
-- ❌ Wishlist feature
-- ❌ Product reviews & ratings
+-  Giỏ hàng (Cart system)
+-  Checkout & Thanh toán (Payment gateway)
+-  User authentication & Account (Login/Register)
+-  Order management (Lịch sử mua hàng)
+-  Admin dashboard (Quản lý sản phẩm)
+-  Unit tests & E2E tests (Testing)
+-  Wishlist feature
+-  Product reviews & ratings
 
 ---
 
-## 📚 Tài Liệu Tham Khảo
+##  Tài Liệu Tham Khảo
 
 | **Công Nghệ** | **Liên Kết** |
 |---|---|
@@ -537,27 +537,26 @@ VITE_API_URL=http://127.0.0.1:8000/api
 
 ---
 
-## 📁 Báo Cáo & Tài Liệu Dự Án
+## Báo Cáo & Tài Liệu Dự Án
 
-- 📄 **[BAOCAO.md](baocao.md)** - Báo cáo số 1: Tổng quan dự án
-- 📄 **[BAOCAO2.md](BAOCAO2.md)** - Báo cáo số 2: Chi tiết luồng tìm kiếm AI (22 phần)
+-  **[BAOCAO2.md](BAOCAO2.md)** - Báo cáo số 2: Chi tiết luồng tìm kiếm AI (22 phần)
 
 ---
 
-## 👤 Thông Tin Tác Giả
+##  Thông Tin Tác Giả
 
 **Văn Tiết** (VanTiet / End123)
 
-📧 Email: End123@finaltest.PNV.com  
-📍 Địa chỉ: Số 123, Đường ABC, Quận Sơn Trà, TP. Đà Nẵng  
-📞 Phone: (+84) 373 532 152
+Email: End123@finaltest.PNV.com  
+Địa chỉ: Số 123, Đường ABC, Quận Sơn Trà, TP. Đà Nẵng  
+Phone: (+84) 373 532 152
 
 ---
 
-## 📄 License
+##  License
 
-🔐 **Bản quyền:** Dự án này là bài thi cuối kỳ môn **Thiết kế Web Nâng cao** & **ReactJS**.  
-❌ **Không được phép:** Sử dụng thương mại, sao chép hoặc phân phối mà không có sự cho phép.
+ **Bản quyền:** Dự án này là bài thi cuối kỳ môn **Thiết kế Web Nâng cao** & **ReactJS**.  
+ **Không được phép:** Sử dụng thương mại, sao chép hoặc phân phối mà không có sự cho phép.
 
 ---
 
@@ -565,4 +564,4 @@ VITE_API_URL=http://127.0.0.1:8000/api
 **Ngày cập nhật**: 02/06/2026  
 **Phiên bản**: 1.1.0
 
-✨ *Happy Shopping with AI!* ✨
+ *Happy Shopping with AI!* 

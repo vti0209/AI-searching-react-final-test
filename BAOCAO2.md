@@ -1,6 +1,6 @@
-# 📋 BÁOCAO SỐ 2: LUỒNG ĐI CHI TIẾT TÍNH NĂNG TÌM KIẾM AI
+#  BÁOCAO SỐ 2: LUỒNG ĐI CHI TIẾT TÍNH NĂNG TÌM KIẾM AI
 
-## 🎯 TỔNG QUAN TÍNH NĂNG
+##  TỔNG QUAN TÍNH NĂNG
 
 Tính năng tìm kiếm AI của ứng dụng FASHIAI hoạt động theo quy trình sau:
 
@@ -8,9 +8,9 @@ Tính năng tìm kiếm AI của ứng dụng FASHIAI hoạt động theo quy tr
 
 ---
 
-## 📍 BƯỚC 1: NGƯỜI DÙNG NHẬP TỪ KHÓA TRÊN FRONTEND
+##  BƯỚC 1: NGƯỜI DÙNG NHẬP TỪ KHÓA TRÊN FRONTEND
 
-### 📁 File: `my-app/src/pages/ShopPage.jsx`
+###  File: `my-app/src/pages/ShopPage.jsx`
 **Vai trò:** Trang chính để người dùng tìm kiếm sản phẩm.
 
 #### 🔹 Khác 1: Định nghĩa State và lấy tham số URL
@@ -48,7 +48,7 @@ const [searchText, setSearchText] = useState(query);
    - **`searchParams.get('page')`**: Nếu URL có `?page=2` → trả về string `"2"`
    - **`||` (hoặc)**: Nếu không có tham số `page` → dùng `"1"`
    - Ví dụ: `/shop` → `page = "1"`; `/shop?page=3` → `page = "3"`
-   - ⚠️ Lưu ý: Giá trị là string, không phải số (JavaScript URL parameters luôn là string)
+   -  Lưu ý: Giá trị là string, không phải số (JavaScript URL parameters luôn là string)
 
 4. **`const navigate = useNavigate();`** - Dòng 9
    - Lấy hook từ React Router để thay đổi URL mà không reload trang
@@ -207,9 +207,9 @@ const handleSearchSubmit = (e) => {
 
 ---
 
-## 📍 BƯỚC 2: URL THAY ĐỔI - USEEFFECT ĐƯỢC KÍCH HOẠT
+##  BƯỚC 2: URL THAY ĐỔI - USEEFFECT ĐƯỢC KÍCH HOẠT
 
-### 📁 File: `my-app/src/pages/ShopPage.jsx`
+###  File: `my-app/src/pages/ShopPage.jsx`
 
 #### 🔹 Khác 4: Hook useEffect - Lắng nghe thay đổi query
 
@@ -322,7 +322,7 @@ useEffect(() => {
     - Tắt loading ngay cả khi có lỗi
     - Tránh spinner hiển thị vĩnh viễn
 
-**🎁 Dữ liệu nhận được từ API:**
+** Dữ liệu nhận được từ API:**
 ```json
 {
     "success": true,
@@ -373,9 +373,9 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 
 ---
 
-## 📍 BƯỚC 4: CONTROLLER XỬ LÝ - LỌC LOGIC
+## BƯỚC 4: CONTROLLER XỬ LÝ - LỌC LOGIC
 
-### 📁 File: `backend/app/Http/Controllers/ProductController.php`
+### File: `backend/app/Http/Controllers/ProductController.php`
 
 #### 🔹 Khác 6: Bắt đầu hàm index - Lấy tham số
 
@@ -1035,9 +1035,9 @@ return ['is_ai' => $isAi, 'parsed' => $parsed, 'explanation' => $explanation];
 
 ---
 
-## 📍 BƯỚC 6: BACKEND QUAY LẠI - ÁP DỤNG TIÊU CHÍ LỌC
+## BƯỚC 6: BACKEND QUAY LẠI - ÁP DỤNG TIÊU CHÍ LỌC
 
-### 📁 File: `backend/app/Http/Controllers/ProductController.php`
+### File: `backend/app/Http/Controllers/ProductController.php`
 
 #### 🔹 Khác 15: Kiểm tra kết quả AI - Có dùng AI không?
 
@@ -1935,9 +1935,9 @@ Luồng tìm kiếm AI của FASHIAI hoạt động theo quy trình:
    - 8 thẻ sản phẩm
    - Nút phân trang để xem trang khác
 
-**🎯 Ưu điểm của kiến trúc này:**
-- ✅ Tìm kiếm thông minh nhờ AI
-- ✅ Fallback khi AI không hoạt động (tìm kiếm từ khóa)
-- ✅ Phân trang giảm tải server
-- ✅ URL lưu trạng thái (có thể chia sẻ link tìm kiếm)
-- ✅ UX tốt với giải thích AI cho người dùng
+** Ưu điểm của kiến trúc này:**
+- Tìm kiếm thông minh nhờ AI
+- Fallback khi AI không hoạt động (tìm kiếm từ khóa)
+- Phân trang giảm tải server
+- URL lưu trạng thái (có thể chia sẻ link tìm kiếm)
+- UX tốt với giải thích AI cho người dùng
