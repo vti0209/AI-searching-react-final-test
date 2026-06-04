@@ -4,7 +4,6 @@ import { MainLayout } from './layout/MainLayout';
 import { ShopPage } from './pages/ShopPage';
 import { HomePage } from './pages/HomePage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
-
 function App() {
     return (
         <Routes>
