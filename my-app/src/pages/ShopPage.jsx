@@ -72,7 +72,7 @@ export function ShopPage() {
                                     className="form-control border-0 py-3 px-4 search-input"
                                     placeholder="Bạn muốn tìm gì..."
                                     value={searchText}
-                                    onChange={(e) => setSearchText(e.target.value)}
+                                    onChange={(e) => setSearchText(e.target.value)} // Cập nhật searchText khi người dùng nhập vào ô tìm kiếm
                                 />
                                 <button
                                     type="submit"
